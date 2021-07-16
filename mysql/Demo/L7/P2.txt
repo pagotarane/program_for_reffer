@@ -1,0 +1,243 @@
+Microsoft Windows [Version 6.3.9600]
+(c) 2013 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 30
+Server version: 8.0.11 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'datab
+ase' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| 16_dec             |
+| 18_dec             |
+| 19_dec             |
+| bike_db            |
+| book_db            |
+| db                 |
+| emp_db             |
+| emp_dbb            |
+| information_schema |
+| kp                 |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| thane_13dec        |
+| thane_13dec_a      |
+| thane_14dec        |
+| tickit_db          |
+| tp                 |
+| vendors            |
+| vendors_db         |
+| world              |
++--------------------+
+22 rows in set (0.06 sec)
+
+mysql> use 19_dec;
+Database changed
+mysql> source E:\MYSQL\Demo\L7\P.sql
+ERROR 1050 (42S01): Table 'department' already exists
+ERROR 1050 (42S01): Table 'employee' already exists
+Query OK, 3 rows affected (0.18 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+ERROR 1366 (HY000): Incorrect decimal value: 'comps' for column 'salary' at row
+1
+mysql> drop table employee;
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> source E:\MYSQL\Demo\L7\P.sql
+Query OK, 0 rows affected (0.56 sec)
+
+Query OK, 0 rows affected (0.64 sec)
+
+Query OK, 3 rows affected (0.21 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+Query OK, 10 rows affected (0.11 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
++----+-------+-----------+---------+--------+
+| id | name  | dept_name | salary  | gender |
++----+-------+-----------+---------+--------+
+|  8 | pooja | extc      | 2200.00 | f      |
++----+-------+-----------+---------+--------+
+1 row in set (0.18 sec)
+
++----+---------+-----------+---------+--------+
+| id | name    | dept_name | salary  | gender |
++----+---------+-----------+---------+--------+
+|  1 | amit    | comps     | 4500.00 | m      |
+|  2 | sumit   | comps     | 5000.00 | m      |
+|  3 | reena   | comps     | 5000.00 | f      |
+|  7 | rinkesh | comps     | 6200.00 | m      |
+|  9 | saurabh | comps     | 4800.00 | m      |
++----+---------+-----------+---------+--------+
+5 rows in set (0.00 sec)
+
++----+---------+-----------+---------+--------+
+| id | name    | dept_name | salary  | gender |
++----+---------+-----------+---------+--------+
+|  1 | amit    | comps     | 4500.00 | m      |
+|  2 | sumit   | comps     | 5000.00 | m      |
+|  3 | reena   | comps     | 5000.00 | f      |
+|  4 | nikhil  | it        | 3500.00 | m      |
+|  6 | rakesh  | it        | 4200.00 | m      |
+|  7 | rinkesh | comps     | 6200.00 | m      |
+|  9 | saurabh | comps     | 4800.00 | m      |
++----+---------+-----------+---------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee where dept_name IN
+    -> (select max(salary) from employee group by dept_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near '' at
+line 2
+mysql> select * from employee where salary IN
+    -> (select max(salary) from employee group by dept_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near '' at
+line 2
+mysql> create table prod
+    -> (
+    -> pid int,pname varchar(30),pprice double(8,2),pstock int);
+Query OK, 0 rows affected (0.56 sec)
+
+mysql> insert into prod values(101,'hdd',5200,10),(102,'cd',180,20),(103,'speake
+r',1500,5),(104,'keyboard',850,10);
+Query OK, 4 rows affected (0.18 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from prod;
++------+----------+---------+--------+
+| pid  | pname    | pprice  | pstock |
++------+----------+---------+--------+
+|  101 | hdd      | 5200.00 |     10 |
+|  102 | cd       |  180.00 |     20 |
+|  103 | speaker  | 1500.00 |      5 |
+|  104 | keyboard |  850.00 |     10 |
++------+----------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into prod values(105,'sd card',475,0);
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select * from prod;
++------+----------+---------+--------+
+| pid  | pname    | pprice  | pstock |
++------+----------+---------+--------+
+|  101 | hdd      | 5200.00 |     10 |
+|  102 | cd       |  180.00 |     20 |
+|  103 | speaker  | 1500.00 |      5 |
+|  104 | keyboard |  850.00 |     10 |
+|  105 | sd card  |  475.00 |      0 |
++------+----------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create or replace view v1 as
+    -> select * from prod
+    -> where pstock=0;
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> select * from v1;
++------+---------+--------+--------+
+| pid  | pname   | pprice | pstock |
++------+---------+--------+--------+
+|  105 | sd card | 475.00 |      0 |
++------+---------+--------+--------+
+1 row in set (0.08 sec)
+
+mysql> create or replace view prod_over as
+    -> select * from prod
+    -> where pstock=0;
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> select * from prod_over;
++------+---------+--------+--------+
+| pid  | pname   | pprice | pstock |
++------+---------+--------+--------+
+|  105 | sd card | 475.00 |      0 |
++------+---------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> create or replace view prod_list as
+    -> select * from prod;
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> select * from prod_list;
++------+----------+---------+--------+
+| pid  | pname    | pprice  | pstock |
++------+----------+---------+--------+
+|  101 | hdd      | 5200.00 |     10 |
+|  102 | cd       |  180.00 |     20 |
+|  103 | speaker  | 1500.00 |      5 |
+|  104 | keyboard |  850.00 |     10 |
+|  105 | sd card  |  475.00 |      0 |
++------+----------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create or replace view prod_list as
+    -> select pname * from prod;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'from
+prod' at line 2
+mysql> create or replace view prod_list as
+    -> select pname from prod;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> select * from prod_list;
++----------+
+| pname    |
++----------+
+| hdd      |
+| cd       |
+| speaker  |
+| keyboard |
+| sd card  |
++----------+
+5 rows in set (0.00 sec)
+
+mysql> createor replace view prod_price_a(product_name,product_price) as
+    -> select pname,pprice from prod;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'creat
+eor replace view prod_price_a(product_name,product_price) as
+select pname,p' at line 1
+mysql> create or replace view prod_price_a(product_name,product_price) as
+    -> select pname,pprice from prod;
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> createor replace view prod_price_b as
+    -> select pname product_name,pprice product_price from prod;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'creat
+eor replace view prod_price_b as
+select pname product_name,pprice product_p' at line 1
+mysql> create or replace view prod_price_b as
+    -> select pname product_name,pprice product_price from prod;
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> create or replace view prod_storage as
+    -> select pname,pprice price from prod
+    -> where pname in('hdd','cd','sd card');
+Query OK, 0 rows affected (0.13 sec)
+
+mysql>

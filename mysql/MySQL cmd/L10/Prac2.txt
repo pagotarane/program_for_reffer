@@ -1,0 +1,105 @@
+triggers
+
+
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -pabc123
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 19
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use thane_23dec;
+Database changed
+mysql> delimiter $$
+mysql> drop trigger if exists t1$$
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> create trigger t1 before insert on employee for each row
+    -> begin
+    -> if (new.eid < 0) then
+    -> signal SQLSTATE '11111'
+    -> set message_text = 'ID should be > 0";
+    '> end if;
+    '>
+    '> if (new.ename is null or length(new.ename) < 2) then
+    '> signal SQLSTATE '22222'
+    '> set message_text = 'Invalid Name';
+    '> end if;
+    '> end $$
+    '>
+    '> drop trigger if exists t2$$
+    '> create trigger t2 after insert on employee for each row
+    '> begin
+    '> insert into employee_bkup values(new.eid,new.ename,'INSERT',now());
+    '> end $$
+    '>
+    '> delimiter ;
+    '>
+    '> ^C
+mysql> delimiter $$
+mysql> create trigger t1 before insert on employee for each row
+    -> begin
+    -> if (new.eid < 0) then
+    -> signal SQLSTATE '11111'
+    -> set message_text = "ID should be > 0";
+    -> end if;
+    -> if (new.ename is null or length(new.ename) < 2) then
+    -> signal SQLSTATE '22222'
+    -> set message_text = 'Invalid Name';
+    -> end if;
+    -> end $$
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> drop trigger if exists t2$$
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> create trigger t2 after insert on employee for each row
+    -> begin
+    -> insert into employee_bkup values(new.eid,new.ename,'INSERT',now());
+    -> end $$
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> delimiter ;
+mysql> insert into employee(10,'amit);
+    '> ^C
+mysql> insert into employee(10,'amit');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10,'amit')' at line 1
+mysql> insert into employee values (10,'amit');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee values (20,'sumit');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into employee values (-20,'sumit');
+ERROR 1644 (11111): ID should be > 0
+mysql> insert into employee values (30,'s');
+ERROR 1644 (22222): Invalid Name
+mysql> insert into employee values (30,null);
+ERROR 1644 (22222): Invalid Name
+mysql> select * from employee;
++-----+-------+
+| eid | ename |
++-----+-------+
+|  10 | amit  |
+|  20 | sumit |
++-----+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee_bkup;
++------+-------+-----------+---------------------+
+| eid  | ename | operation | operation_time      |
++------+-------+-----------+---------------------+
+|   10 | amit  | INSERT    | 2019-12-23 23:15:23 |
+|   20 | sumit | INSERT    | 2019-12-23 23:15:29 |
++------+-------+-----------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql>

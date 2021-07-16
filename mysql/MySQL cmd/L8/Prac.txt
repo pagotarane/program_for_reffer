@@ -1,0 +1,452 @@
+mysql> create database thane_20dec;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> use thane_20dec;
+Database changed
+
+mysql> source E:\MySQL\L8\p1.sql
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> call p1();
++-------------+
+| MSG         |
++-------------+
+| hello world |
++-------------+
+1 row in set (0.07 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> source E:\MySQL\L8\p2.sql
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> source E:\MySQL\L8\p2.sql
+Query OK, 0 rows affected (0.48 sec)
+
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> call p2();
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE thane_20dec.p2; expected 2, got 0
+mysql> call p2(10,5);
++--------+
+| RESULT |
++--------+
+|     15 |
++--------+
+1 row in set (0.00 sec)
+
++----------+
+| RESULT_1 |
++----------+
+|       15 |
++----------+
+1 row in set (0.01 sec)
+
++----------+
+| RESULT_2 |
++----------+
+|       15 |
++----------+
+1 row in set (0.03 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> source E:\MySQL\L8\p3.sql
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> source E:\MySQL\L8\p3.sql
+Query OK, 0 rows affected (0.22 sec)
+
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> call p3(10,25,@ans);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @ans;
++------+
+| @ans |
++------+
+|   35 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select call p3(10,25,@ans);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'call p3(10,25,@ans)' at line 1
+mysql> source E:\MySQL\L8\p4.sql
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call p4(10);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source E:\MySQL\L8\p4.sql
+Query OK, 0 rows affected (0.17 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call p4(10);
++--------+
+| RESULT |
++--------+
+| 314.12 |
++--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p4(100);
++--------+
+| RESULT |
++--------+
+|  31412 |
++--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p4(18);
++---------+
+| RESULT  |
++---------+
+| 1017.75 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L8\p4.sql
+Query OK, 0 rows affected (0.14 sec)
+
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> call p4(100);
++--------+
+| RESULT |
++--------+
+|  31412 |
++--------+
+1 row in set (0.07 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+
+ERROR 1304 (42000): PROCEDURE p4 already exists
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected (0.15 sec)
+
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> set @num = 8.56;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> call p5(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++-------------------+
+| @num              |
++-------------------+
+| 230.1699981689453 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected (0.19 sec)
+
+Query OK, 0 rows affected (0.43 sec)
+
+mysql> set @num = 8.56;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p5(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++-------------------+
+| @num              |
++-------------------+
+| 230.1699981689453 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected (0.15 sec)
+
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> set @num = 8.56;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p5(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++-------------------+
+| @num              |
++-------------------+
+| 230.1999969482422 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected (0.17 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> set @num = 8.56;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p5(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++-------------------+
+| @num              |
++-------------------+
+| 230.1999969482422 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected (0.22 sec)
+
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> set @num = 8.56;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p5(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++-------------------+
+| @num              |
++-------------------+
+| 230.1999969482422 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p5.sql
+Query OK, 0 rows affected (0.30 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> set @num = 8.56;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p5(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++-------+
+| @num  |
++-------+
+| 230.2 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p6.sql
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> set @num = 32;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p6(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++------+
+| @num |
++------+
+|    0 |
++------+
+1 row in set (0.00 sec)
+
+mysql> set @num = 212;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p6(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++------+
+| @num |
++------+
+|  100 |
++------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p6.sql
+Query OK, 0 rows affected (0.18 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "TEMPERATURE IN CELSIUS";
+end' at line 6
+mysql> source E:\MySQL\L8\p6.sql
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> source E:\MySQL\L8\p6.sql
+Query OK, 0 rows affected (0.16 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> set @num = 212;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p6(@num);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @num;
++------+
+| @num |
++------+
+|  100 |
++------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L8\p7.sql
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 7
+mysql> source E:\MySQL\L8\p7.sql
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call p7("noon");
++------------+
+| result     |
++------------+
+| palindrome |
++------------+
+1 row in set (0.03 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> call p7("noonn");
++----------------+
+| result         |
++----------------+
+| not palindrome |
++----------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L8\p8.sql
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> call p8(2016);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source E:\MySQL\L8\p8.sql
+Query OK, 0 rows affected (0.15 sec)
+
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> call p8(2016);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source E:\MySQL\L8\p8.sql
+Query OK, 0 rows affected (0.18 sec)
+
+Query OK, 0 rows affected (0.32 sec)
+
+mysql> call p8(2016);
++---------------+
+| result        |
++---------------+
+| NOT LEAP YEAR |
++---------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L8\p9.sql
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 16
+mysql> source E:\MySQL\L8\p9.sql
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> call p9(85);
++-------+
+| GRADE |
++-------+
+| D     |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p9(65);
++-------+
+| GRADE |
++-------+
+| FC    |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p9(35);
++-------+
+| GRADE |
++-------+
+| FAIL  |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p9(55);
++-------+
+| GRADE |
++-------+
+| SC    |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L8\p10.sql
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> set @price = 100;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p10(@price);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @price;
++--------+
+| @price |
++--------+
+|     90 |
++--------+
+1 row in set (0.00 sec)
+
+mysql>

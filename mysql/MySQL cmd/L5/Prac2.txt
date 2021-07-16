@@ -1,0 +1,73 @@
+mysql> create database emp_db;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> use emp_db;
+Database changed
+mysql> create table emp
+    -> (
+    -> id int primary key,
+    -> name varchar(100),
+    -> salary float
+    -> );
+Query OK, 0 rows affected (1.25 sec)
+
+mysql> insert into emp values (10,"yogesh",4500);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into emp values (20,"mahesh",3600),(30,"shailesh",4000);
+Query OK, 2 rows affected (0.14 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp values(30,"ramesh",3800)
+    -> on duplicate key update name = "ramesh", salary = "3800";
+Query OK, 2 rows affected (0.13 sec)
+
+mysql> select * from emp
+    -> ;
++----+--------+--------+
+| id | name   | salary |
++----+--------+--------+
+| 10 | yogesh |   4500 |
+| 20 | mahesh |   3600 |
+| 30 | ramesh |   3800 |
++----+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update emp
+    -> set salary = salary * 1.1 where id = 10;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp
+    -> set salary = salary * 1.2
+    -> order by salary
+    -> limit 1;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp
+    -> ;
++----+--------+--------+
+| id | name   | salary |
++----+--------+--------+
+| 10 | yogesh |   4950 |
+| 20 | mahesh |   4320 |
+| 30 | ramesh |   3800 |
++----+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from emp where id = 30;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> delete from emp
+    -> order by salary desc
+    -> limit 1;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from emp;
++----+--------+--------+
+| id | name   | salary |
++----+--------+--------+
+| 20 | mahesh |   4320 |
++----+--------+--------+
+1 row in set (0.00 sec)

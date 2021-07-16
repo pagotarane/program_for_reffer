@@ -1,0 +1,406 @@
+Microsoft Windows [Version 10.0.18362.476]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -pabc123
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> source E:\MySQL\L4\pr1.sql
+Query OK, 1 row affected (0.16 sec)
+
+Database changed
+Query OK, 0 rows affected (1.70 sec)
+
+mysql> source E:\MySQL\L4\pr1.sql
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+Database changed
+Query OK, 0 rows affected, 1 warning (0.09 sec)
+
+Query OK, 2 rows affected (0.29 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> use thane_16dec
+Database changed
+mysql> select * from te1;
++-----+-------+
+| eid | ename |
++-----+-------+
+|   1 | abc   |
+|   2 | def   |
++-----+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into te1 values (3,"abc");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from te1;
++-----+-------+
+| eid | ename |
++-----+-------+
+|   1 | abc   |
+|   2 | def   |
+|   3 | abc   |
++-----+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table te1
+    -> drop primary key;
+Query OK, 3 rows affected (3.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> desc te1;
++-------+------------------+------+-----+---------+-------+
+| Field | Type             | Null | Key | Default | Extra |
++-------+------------------+------+-----+---------+-------+
+| eid   | int(10) unsigned | NO   |     | NULL    |       |
+| ename | varchar(50)      | YES  |     | NULL    |       |
++-------+------------------+------+-----+---------+-------+
+2 rows in set (0.18 sec)
+
+mysql> insert into te1 (10,"kamal");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10,"kamal")' at line 1
+mysql> insert into te1 values(10,"kamal");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> alter table te1
+    -> modify eid int unsigned eid int unsigned primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'eid int unsigned primary key' at line 2
+mysql> modify eid int unsigned primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify eid int unsigned primary key' at line 1
+mysql> alter table te1
+    -> add primary key(eid);
+Query OK, 0 rows affected (3.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table te1
+    -> modify eid int unsigned primary key;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> desc te1;
++-------+------------------+------+-----+---------+-------+
+| Field | Type             | Null | Key | Default | Extra |
++-------+------------------+------+-----+---------+-------+
+| eid   | int(10) unsigned | NO   | PRI | NULL    |       |
+| ename | varchar(50)      | YES  |     | NULL    |       |
++-------+------------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table te2
+    -> (
+    -> eid int unsigned,
+    -> ename varchar(70),
+    -> constraint pp1 primary key(eid,ename)
+    -> );
+Query OK, 0 rows affected (1.21 sec)
+
+mysql> desc te2;
++-------+------------------+------+-----+---------+-------+
+| Field | Type             | Null | Key | Default | Extra |
++-------+------------------+------+-----+---------+-------+
+| eid   | int(10) unsigned | NO   | PRI | NULL    |       |
+| ename | varchar(70)      | NO   | PRI | NULL    |       |
++-------+------------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop primary key on te2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key on te2' at line 1
+mysql> alter table te1
+    -> drop primary key;
+Query OK, 4 rows affected (2.45 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> alter table te2
+    -> drop primary key;
+Query OK, 0 rows affected (2.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc te2;
++-------+------------------+------+-----+---------+-------+
+| Field | Type             | Null | Key | Default | Extra |
++-------+------------------+------+-----+---------+-------+
+| eid   | int(10) unsigned | NO   |     | NULL    |       |
+| ename | varchar(70)      | NO   |     | NULL    |       |
++-------+------------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table te2
+    -> add primary key(eid);
+Query OK, 0 rows affected (1.71 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc te2;
++-------+------------------+------+-----+---------+-------+
+| Field | Type             | Null | Key | Default | Extra |
++-------+------------------+------+-----+---------+-------+
+| eid   | int(10) unsigned | NO   | PRI | NULL    |       |
+| ename | varchar(70)      | NO   |     | NULL    |       |
++-------+------------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show index from te2\G
+*************************** 1. row ***************************
+        Table: te2
+   Non_unique: 0
+     Key_name: PRIMARY
+ Seq_in_index: 1
+  Column_name: eid
+    Collation: A
+  Cardinality: 0
+     Sub_part: NULL
+       Packed: NULL
+         Null:
+   Index_type: BTREE
+      Comment:
+Index_comment:
+      Visible: YES
+   Expression: NULL
+1 row in set (0.11 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bike_db            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| thane_13dec        |
+| thane_13dec_a      |
+| thane_14dec        |
+| thane_16dec        |
+| ticket_db          |
+| vendors_db         |
+| world              |
++--------------------+
+13 rows in set (0.00 sec)
+
+mysql> show databases()
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+mysql> show database
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show database();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database()' at line 1
+mysql> source E:\MySQL\L4\pr2.sql
+Query OK, 1 row affected (0.16 sec)
+
+Database changed
+Query OK, 0 rows affected (0.72 sec)
+
+Query OK, 0 rows affected (1.60 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bike_db            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| thane_13dec        |
+| thane_13dec_a      |
+| thane_14dec        |
+| thane_16dec        |
+| ticket_db          |
+| vendors            |
+| vendors_db         |
+| world              |
++--------------------+
+14 rows in set (0.00 sec)
+
+mysql> source E:\MySQL\L4\pr2.sql
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+Database changed
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected, 1 warning (0.10 sec)
+
+Query OK, 3 rows affected (0.22 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+Query OK, 3 rows affected (0.23 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from vendors;
++-----------+-------------+
+| vendor_id | vendor_name |
++-----------+-------------+
+|         1 | amit        |
+|         2 | sumit       |
+|         3 | rumit       |
++-----------+-------------+
+3 rows in set (0.04 sec)
+
+mysql> select * from invoices;
++------------+-----------+----------------+
+| invoice_id | vendor_id | invoice_number |
++------------+-----------+----------------+
+|         10 |         1 | abc_amit       |
+|         20 |         2 | abc_sumit      |
+|         30 |         3 | abc_rumit      |
++------------+-----------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> use thane_16dec;
+Database changed
+mysql> create table if not exists employee
+    -> (
+    -> eid int primary key,
+    -> ename varchar(25),
+    -> esalary double(12,2),
+    -> ephone varchar(10)
+    -> );
+Query OK, 0 rows affected, 1 warning (1.48 sec)
+
+mysql> insert into employee values (10,"amit",6000,"9988");
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into employee values (13,"sumit",6700,"8877");
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into employee values (14,"rumit",7800,"8822");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee values (15,"mit",6800,"8352");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into employee values (28,"sunny",6800,"8332");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from employee;
++-----+-------+---------+--------+
+| eid | ename | esalary | ephone |
++-----+-------+---------+--------+
+|  10 | amit  | 6000.00 | 9988   |
+|  13 | sumit | 6700.00 | 8877   |
+|  14 | rumit | 7800.00 | 8822   |
+|  15 | mit   | 6800.00 | 8352   |
+|  28 | sunny | 6800.00 | 8332   |
++-----+-------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee where ephone="8822";
++-----+-------+---------+--------+
+| eid | ename | esalary | ephone |
++-----+-------+---------+--------+
+|  14 | rumit | 7800.00 | 8822   |
++-----+-------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> explain create table if not exists employee
+    -> (
+    -> eid int primary key,
+    -> ename varchar(25),
+    -> esalary double(12,2),
+    -> ephone varchar(10)
+    -> ^C
+mysql> explain select * from employee where ephone="8822";
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | employee | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    5 |    20.00 | Using where |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.04 sec)
+
+mysql> explain select * from employee where ephone="8822"\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: employee
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 5
+     filtered: 20.00
+        Extra: Using where
+1 row in set, 1 warning (0.00 sec)
+
+mysql> alter table employee
+    -> add index emp1 (ephone);
+Query OK, 0 rows affected (1.39 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> explain select * from employee where ephone="8822"\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: employee
+   partitions: NULL
+         type: ref
+possible_keys: emp1
+          key: emp1
+      key_len: 43
+          ref: const
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+1 row in set, 1 warning (0.06 sec)
+
+mysql> select * from employee where ename like "%it";
++-----+-------+---------+--------+
+| eid | ename | esalary | ephone |
++-----+-------+---------+--------+
+|  10 | amit  | 6000.00 | 9988   |
+|  13 | sumit | 6700.00 | 8877   |
+|  14 | rumit | 7800.00 | 8822   |
+|  15 | mit   | 6800.00 | 8352   |
++-----+-------+---------+--------+
+4 rows in set (0.05 sec)
+
+mysql> explain select * from employee where ename like "%it"\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: employee
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 5
+     filtered: 20.00
+        Extra: Using where
+1 row in set, 1 warning (0.00 sec)
+
+mysql> alter table employee
+    -> add index ep2 (ename);
+Query OK, 0 rows affected (1.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> explain select * from employee where ename like "%it"\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: employee
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 5
+     filtered: 20.00
+        Extra: Using where
+1 row in set, 1 warning (0.00 sec)
+
+mysql>

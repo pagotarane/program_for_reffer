@@ -1,0 +1,27 @@
+mysql> create table t5(a tinyint(7) zerofill);
+Query OK, 0 rows affected, 2 warnings (1.08 sec)
+
+mysql> desc t5;
++-------+------------------------------+------+-----+---------+-------+
+| Field | Type                         | Null | Key | Default | Extra |
++-------+------------------------------+------+-----+---------+-------+
+| a     | tinyint(7) unsigned zerofill | YES  |     | NULL    |       |
++-------+------------------------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into t5 values (-1);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> insert into t5 values (10);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into t5 values (null);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from t5;
++---------+
+| a       |
++---------+
+| 0000010 |
+|    NULL |
++---------+
+2 rows in set (0.02 sec)

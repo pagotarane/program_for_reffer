@@ -1,0 +1,71 @@
+mysql> create database if not exists thane_13dec;
+Query OK, 1 row affected (0.66 sec)
+
+mysql> use thane_13dec;
+Database changed
+mysql> create table t1(a tinyint);
+Query OK, 0 rows affected (2.36 sec)
+
+mysql> desc t1;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| a     | tinyint(4) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+1 row in set (0.38 sec)
+
+mysql> insert into t1 values();
+Query OK, 1 row affected (0.39 sec)
+
+mysql> insert into t1 values(null);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into t1 values(default);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from t1;
++------+
+| a    |
++------+
+| NULL |
+| NULL |
+| NULL |
++------+
+3 rows in set (0.00 sec)
+
+mysql> delete from t1;
+Query OK, 3 rows affected (0.17 sec)
+
+mysql> select * from t1;
+Empty set (0.00 sec)
+
+mysql> insert into t1 values(100);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from t1;
++------+
+| a    |
++------+
+|  100 |
++------+
+1 row in set (0.00 sec)
+
+mysql> insert into t1 values(200);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> insert into t1 values("kamal");
+ERROR 1366 (HY000): Incorrect integer value: 'kamal' for column 'a' at row 1
+mysql> insert into t1 values(12.34);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into t1 values(12.54);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from t1;
++------+
+| a    |
++------+
+|  100 |
+|   12 |
+|   13 |
++------+
+3 rows in set (0.00 sec)

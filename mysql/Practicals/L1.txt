@@ -1,0 +1,363 @@
+Microsoft Windows [Version 10.0.17763.864]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.11 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create databse thane_13dec
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databse thane_13dec' at line 1
+mysql> create database thane_13dec
+    -> ;
+Query OK, 1 row affected (0.30 sec)
+
+mysql> use thane_13dec
+Database changed
+mysql> create table t1(a tinyint);
+Query OK, 0 rows affected (1.43 sec)
+
+mysql> desc t1;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| a     | tinyint(4) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+1 row in set (0.22 sec)
+
+mysql> insert into t1 values();
+Query OK, 1 row affected (0.22 sec)
+
+mysql> insert into t1 values(null);
+Query OK, 1 row affected (0.24 sec)
+
+mysql> insert into t1 values(default);
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from t1;
++------+
+| a    |
++------+
+| NULL |
+| NULL |
+| NULL |
++------+
+3 rows in set (0.00 sec)
+
+mysql> insert into t1 values(100);
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into t1 values(200);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> insert into t1 values("kamal");
+ERROR 1366 (HY000): Incorrect integer value: 'kamal' for column 'a' at row 1
+mysql> insert into t1 values(12.54);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from t1;
++------+
+| a    |
++------+
+| NULL |
+| NULL |
+| NULL |
+|  100 |
+|   13 |
++------+
+5 rows in set (0.00 sec)
+
+mysql> delete from t1;
+Query OK, 5 rows affected (0.16 sec)
+
+mysql> select * from t1;
+Empty set (0.00 sec)
+
+mysql> create table t2(a tinyint unsigned);
+Query OK, 0 rows affected (0.65 sec)
+
+mysql> desc t2;
++-------+---------------------+------+-----+---------+-------+
+| Field | Type                | Null | Key | Default | Extra |
++-------+---------------------+------+-----+---------+-------+
+| a     | tinyint(3) unsigned | YES  |     | NULL    |       |
++-------+---------------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into t2 values(100);
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into t2 values(200);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into t2 values(300);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> insert into t2 values(-10);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> ccreate table t3(a tinyint unsigned not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ccreate table t3(a tinyint unsigned not null)' at line 1
+mysql> create table t3(a tinyint unsigned not null);
+Query OK, 0 rows affected (0.82 sec)
+
+mysql> insert into t3 values();
+ERROR 1364 (HY000): Field 'a' doesn't have a default value
+mysql> insert into t3 values(10);
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into t3 values(0.4);
+Query OK, 1 row affected (0.26 sec)
+
+mysql> insert into t3 values(0.6);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from t3;
++----+
+| a  |
++----+
+| 10 |
+|  0 |
+|  1 |
++----+
+3 rows in set (0.00 sec)
+
+mysql> create table t4(a tinyint unsigned not null default 10);
+Query OK, 0 rows affected (0.76 sec)
+
+mysql> insert into t4 values();
+Query OK, 1 row affected (0.51 sec)
+
+mysql> insert into t4 values(null);
+ERROR 1048 (23000): Column 'a' cannot be null
+mysql> insert into t4 values(default);
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into t4 values(10);
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from t4;
++----+
+| a  |
++----+
+| 10 |
+| 10 |
+| 10 |
++----+
+3 rows in set (0.00 sec)
+
+mysql> create table t5(a tinyint(7) zerofill);
+Query OK, 0 rows affected (1.03 sec)
+
+mysql> desc t5;
++-------+------------------------------+------+-----+---------+-------+
+| Field | Type                         | Null | Key | Default | Extra |
++-------+------------------------------+------+-----+---------+-------+
+| a     | tinyint(7) unsigned zerofill | YES  |     | NULL    |       |
++-------+------------------------------+------+-----+---------+-------+
+1 row in set (0.15 sec)
+
+mysql> insert into t5 values(-1);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> insert into t5 values(10);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into t5 values(null);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from t5;
++---------+
+| a       |
++---------+
+| 0000010 |
+|    NULL |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> create table t5(b float);
+ERROR 1050 (42S01): Table 't5' already exists
+mysql> create table t7(b float);
+Query OK, 0 rows affected (0.55 sec)
+
+mysql> insert into t7 values(10);
+Query OK, 1 row affected (0.22 sec)
+
+mysql> insert into t7 values(1.23);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into t7 values(12.30);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into t7 values(-12.30);
+Query OK, 1 row affected (0.28 sec)
+
+mysql> insert into t7 values(67.5854647894898477);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> select * from t7;
++---------+
+| b       |
++---------+
+|      10 |
+|    1.23 |
+|    12.3 |
+|   -12.3 |
+| 67.5855 |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> create table t8(b float(10,3));
+Query OK, 0 rows affected (0.65 sec)
+
+mysql> insert into t8 values(67.67965737987);
+Query OK, 1 row affected (0.23 sec)
+
+mysql> select * from t8;
++--------+
+| b      |
++--------+
+| 67.680 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> insert into t8 values(6765677575758857.67965737987);
+ERROR 1264 (22003): Out of range value for column 'b' at row 1
+mysql> create table t9(b float(9,6));
+Query OK, 0 rows affected (0.69 sec)
+
+mysql> insert into t8 values(123.67965737987);
+Query OK, 1 row affected (0.22 sec)
+
+mysql> select * from t9;
+Empty set (0.00 sec)
+
+mysql> insert into t9 values(123.67965737987);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from t9;
++------------+
+| b          |
++------------+
+| 123.679657 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> create table t11(a char(5),b varchar(6));
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> desc t11;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| a     | char(5)    | YES  |     | NULL    |       |
+| b     | varchar(6) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into t11 values('kk','kk')
+    -> ;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into t11 values('kamal','vishal')
+    -> ;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> desc t11
+    -> ;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| a     | char(5)    | YES  |     | NULL    |       |
+| b     | varchar(6) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into t11 values('kamalhasan');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> create table t12(ey enum('fe','se','te','be'));
+Query OK, 0 rows affected (0.73 sec)
+
+mysql> desc t11;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| a     | char(5)    | YES  |     | NULL    |       |
+| b     | varchar(6) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into t12 values();
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into t12 values('FE');
+Query OK, 1 row affected (0.25 sec)
+
+mysql> insert into t12 values('FE,SE');
+ERROR 1265 (01000): Data truncated for column 'ey' at row 1
+mysql> select * from t12;
++------+
+| ey   |
++------+
+| NULL |
+| fe   |
++------+
+2 rows in set (0.00 sec)
+
+mysql> insert into t12 values('default');
+ERROR 1265 (01000): Data truncated for column 'ey' at row 1
+mysql> insert into t12 values(default);
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from t12;
++------+
+| ey   |
++------+
+| NULL |
+| fe   |
+| NULL |
++------+
+3 rows in set (0.00 sec)
+
+mysql> create table t14(materials set('notes','software','certificates');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table t14(materials set('notes','software','certificates'));
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> desc t14;
++-----------+----------------------------------------+------+-----+---------+-------+
+| Field     | Type                                   | Null | Key | Default | Extra |
++-----------+----------------------------------------+------+-----+---------+-------+
+| materials | set('notes','software','certificates') | YES  |     | NULL    |       |
++-----------+----------------------------------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> desc t14\G
+*************************** 1. row ***************************
+  Field: materials
+   Type: set('notes','software','certificates')
+   Null: YES
+    Key:
+Default: NULL
+  Extra:
+1 row in set (0.00 sec)
+
+mysql> insert into t14 values();
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into t14 values('notes');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into t14 values('notes,notes');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into t14 values('notes,software');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into t14 values('notes,software');

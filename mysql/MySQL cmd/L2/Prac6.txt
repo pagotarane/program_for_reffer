@@ -1,0 +1,68 @@
+mysql> create table t7(b float);
+Query OK, 0 rows affected (2.00 sec)
+
+mysql> insert into t7 values(10);
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into t7 values(1.23);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into t7 values(1.23e3);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from t7;
++------+
+| b    |
++------+
+|   10 |
+| 1.23 |
+| 1230 |
++------+
+3 rows in set (0.00 sec)
+
+mysql> insert into t7 values(-1.23e3);
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select * from t7;
++-------+
+| b     |
++-------+
+|    10 |
+|  1.23 |
+|  1230 |
+| -1230 |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into t7 values(67.123456789);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from t7;
++---------+
+| b       |
++---------+
+|      10 |
+|    1.23 |
+|    1230 |
+|   -1230 |
+| 67.1235 |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into t7 values(78.12123456789);
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from t7;
++---------+
+| b       |
++---------+
+|      10 |
+|    1.23 |
+|    1230 |
+|   -1230 |
+| 67.1235 |
+| 78.1212 |
++---------+
+6 rows in set (0.00 sec)
+
+mysql>

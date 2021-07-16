@@ -1,0 +1,33 @@
+mysql> create table t4(a tinyint unsigned not null default 10);
+Query OK, 0 rows affected (1.06 sec)
+
+mysql> desc t4;
++-------+---------------------+------+-----+---------+-------+
+| Field | Type                | Null | Key | Default | Extra |
++-------+---------------------+------+-----+---------+-------+
+| a     | tinyint(3) unsigned | NO   |     | 10      |       |
++-------+---------------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into t4 values();
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into t4 values(null);
+ERROR 1048 (23000): Column 'a' cannot be null
+mysql> insert into t4 values(default);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into t4 values(10);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into t4 values(-10);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> select * from t4;
++----+
+| a  |
++----+
+| 10 |
+| 10 |
+| 10 |
++----+
+3 rows in set (0.00 sec)

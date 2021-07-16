@@ -1,0 +1,13 @@
+import java.io.*;
+class Armstrong 
+{
+public static void main(String args[])
+	{
+	int number;
+	Console c=System.console();
+	number=Integer.parseInt(c.readLine("Enter the Number "));
+	int len=Integer.toString(number).length();
+	System.out.println(len);	
+
+	}
+}

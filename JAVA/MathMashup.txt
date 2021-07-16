@@ -1,0 +1,104 @@
+class 
+{
+public static void main(String args[])
+{
+System.out.println("hello");
+}
+}Math Mashup
+Write a function which accepts a number of elements in an array N, an array of integers A, cut-off integer X. A function should return value based on described 3-step operations. 
+
+ 
+
+Step-1: Find the elements from an array A, that appears only once. 
+
+E.g.
+
+    N = 20
+
+    A = {-20, 20, -10, 20, 0, 4, 8, -20, 10, -10, 8, 6, 15, 9, 18, 35, 40, -30, -90, 99}
+
+    
+
+Array elements which appeared only once are (order of element should not change). 
+
+= { 0, 4, 10, 6, 15, 9, 18, 35, 40, -30, -90, 99 }
+
+ 
+
+Pass this array to a second step. 
+
+Note: If no element found which appeared only once, return -1.
+
+ 
+
+Step-2: Find subarrays with first element greater than or equal to last element and the subarray size equal to X.
+
+E.g.
+
+    X = 4
+
+    A = { 0, 4, 10, 6, 15, 9, 18, 35, 40, -30, -90, 99 }
+
+ 
+
+The subarrays of size 4 with first element greater than equal to the last element are
+
+{10, 6, 15, 9}, {18, 35, 40, -30}, {35, 40, -30, -90}
+
+ 
+
+Pass this list of arrays to the third step. 
+
+Note: If no array found which satisfies above condition return -2. 
+
+ 
+
+Step-3: Find the largest value which can be formed by combining the absolute value of each subarray. 
+
+E.g.
+
+The second step generated 3 subarrays, we will find the largest value out of that.
+
+For {10, 6, 15, 9}, the largest value that can be formed is 961510
+
+For {18, 35, 40, -30} the largest value that can be formed is 40353018
+
+For {35, 40, -30, -90} the largest value that can be formed is 90403530
+
+ 
+
+Out of these 90403530 is the largest value. Hence function should return 90403530.
+
+ 
+
+The main method of a program will accept input and display out in the following format
+
+ 
+
+Input
+
+20
+
+-20, 20, -10, 20, 0, 4, 8, -20, 10, -10, 8, 6, 15, 9, 18, 35, 40, -30, -90, 99
+4
+
+ 
+
+where
+
+First line contains a number of elements in an array. (integer N)
+Second line represents array elements (integer array A)
+Third line represents Subarray size required for step 2. (integer X)
+ 
+
+Output
+
+90403530
+
+ 
+
+Assumptions:
+
+The array element can range from -99 to +99.
+The array can be of size up to 1000. 
+The value of X can range from 1 to 1000.

@@ -1,0 +1,147 @@
+mysql> create table t8(b float(10,3));
+Query OK, 0 rows affected, 1 warning (1.22 sec)
+
+mysql> insert into t8 values(64.123456789);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from t8;
++--------+
+| b      |
++--------+
+| 64.123 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> insert into t8 values(12345678912.1246546);
+ERROR 1264 (22003): Out of range value for column 'b' at row 1
+mysql> create table t9(b float(9,6));
+Query OK, 0 rows affected, 1 warning (1.17 sec)
+
+mysql> insert into t9 values(123.45666);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> create table t11(a char(6), b varchar(6));
+Query OK, 0 rows affected (1.18 sec)
+
+mysql> desc t11;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| a     | char(6)    | YES  |     | NULL    |       |
+| b     | varchar(6) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+2 rows in set (0.07 sec)
+
+mysql> insert into t11 values('kk','kk');
+Query OK, 1 row affected (0.22 sec)
+
+mysql> select * from t11;
++------+------+
+| a    | b    |
++------+------+
+| kk   | kk   |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from t11;
++------+------+
+| a    | b    |
++------+------+
+| kk   | kk   |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into t11 values('kkkkkkkkk','kkk');
+ERROR 1406 (22001): Data too long for column 'a' at row 1
+mysql> insert into t11 values('kkkkkkkkk','kkkkkkkkkkkk');
+ERROR 1406 (22001): Data too long for column 'a' at row 1
+mysql> create table t12(ey enum('fe','se','te','be'));
+Query OK, 0 rows affected (1.43 sec)
+
+mysql> desc t12;
++-------+---------------------------+------+-----+---------+-------+
+| Field | Type                      | Null | Key | Default | Extra |
++-------+---------------------------+------+-----+---------+-------+
+| ey    | enum('fe','se','te','be') | YES  |     | NULL    |       |
++-------+---------------------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into t12 values();
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into t12 values('FE');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into t12 values('FE,BE');
+ERROR 1265 (01000): Data truncated for column 'ey' at row 1
+mysql> select * from t12;
++------+
+| ey   |
++------+
+| NULL |
+| fe   |
++------+
+2 rows in set (0.00 sec)
+
+mysql> insert into t12 values('default');
+ERROR 1265 (01000): Data truncated for column 'ey' at row 1
+mysql> insert into t12 values(default);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from t12;
++------+
+| ey   |
++------+
+| NULL |
+| fe   |
+| NULL |
++------+
+3 rows in set (0.00 sec)
+
+mysql> create table t14(materials set('notes','software','certificates'));
+Query OK, 0 rows affected (1.29 sec)
+
+mysql> desc t14
+    -> ;
++-----------+----------------------------------------+------+-----+---------+-------+
+| Field     | Type                                   | Null | Key | Default | Extra |
++-----------+----------------------------------------+------+-----+---------+-------+
+| materials | set('notes','software','certificates') | YES  |     | NULL    |       |
++-----------+----------------------------------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> desc t14/G;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '/G' at line 1
+mysql> desc t14\G;
+*************************** 1. row ***************************
+  Field: materials
+   Type: set('notes','software','certificates')
+   Null: YES
+    Key:
+Default: NULL
+  Extra:
+1 row in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> insert into t14 values('notes');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into t14 values('notes,software');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into t14 values('notes,notes');
+Query OK, 1 row affected (0.21 sec)
+
+mysql> select * from t14;
++----------------+
+| materials      |
++----------------+
+| notes          |
+| notes,software |
+| notes          |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql>

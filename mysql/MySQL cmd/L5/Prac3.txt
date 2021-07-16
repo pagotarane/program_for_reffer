@@ -1,0 +1,234 @@
+Microsoft Windows [Version 10.0.18362.476]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -pabc123
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bike_db            |
+| book_db            |
+| emp_db             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| thane_13dec        |
+| thane_13dec_a      |
+| thane_14dec        |
+| thane_16dec        |
+| thane_17dec        |
+| ticket_db          |
+| vendors            |
+| vendors_db         |
+| world              |
++--------------------+
+17 rows in set (0.07 sec)
+
+mysql> create database employee_db;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> use employee_db;
+Database changed
+mysql> create table emp
+    -> (
+    -> employee_id int primary key,
+    -> first_name varchar(30),
+    -> last_name varchar(30),
+    -> salary decimal(10,2),
+    -> joining_date date,
+    -> department varchar(30)
+    -> );
+Query OK, 0 rows affected (1.92 sec)
+
+mysql> insert into emp values (1,"amit","shah",5000,2013-01-01,"Banking");
+ERROR 1292 (22007): Incorrect date value: '2011' for column 'joining_date' at row 1
+mysql> insert into emp values (1,"amit","shah",5000,"2013-01-01","Banking");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into emp values (2,"john","d'souza",4000,"2013-01-01","Insurance");
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from emp;
++-------------+------------+-----------+---------+--------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date | department |
++-------------+------------+-----------+---------+--------------+------------+
+|           1 | amit       | shah      | 5000.00 | 2013-01-01   | Banking    |
+|           2 | john       | d'souza   | 4000.00 | 2013-01-01   | Insurance  |
++-------------+------------+-----------+---------+--------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp values (3,"nikhil","roy",6000,"2013-02-01","Banking");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into emp values (5,"raj","sharma",4500,"2013-02-01","Insurance");
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from emp;
++-------------+------------+-----------+---------+--------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date | department |
++-------------+------------+-----------+---------+--------------+------------+
+|           1 | amit       | shah      | 5000.00 | 2013-01-01   | Banking    |
+|           2 | john       | d'souza   | 4000.00 | 2013-01-01   | Insurance  |
+|           3 | nikhil     | roy       | 6000.00 | 2013-02-01   | Banking    |
+|           5 | raj        | sharma    | 4500.00 | 2013-02-01   | Insurance  |
++-------------+------------+-----------+---------+--------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name as "FIRST NAME", last_name as "Last_name" from emp;
++------------+-----------+
+| FIRST NAME | Last_name |
++------------+-----------+
+| amit       | shah      |
+| john       | d'souza   |
+| nikhil     | roy       |
+| raj        | sharma    |
++------------+-----------+
+4 rows in set (0.04 sec)
+
+mysql> select concat(first_name,"(",department,")") as Emp_Info from emp;
++-----------------+
+| Emp_Info        |
++-----------------+
+| amit(Banking)   |
+| john(Insurance) |
+| nikhil(Banking) |
+| raj(Insurance)  |
++-----------------+
+4 rows in set (0.02 sec)
+
+mysql> select * from emp where salary % 1000 = 0;
++-------------+------------+-----------+---------+--------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date | department |
++-------------+------------+-----------+---------+--------------+------------+
+|           1 | amit       | shah      | 5000.00 | 2013-01-01   | Banking    |
+|           2 | john       | d'souza   | 4000.00 | 2013-01-01   | Insurance  |
+|           3 | nikhil     | roy       | 6000.00 | 2013-02-01   | Banking    |
++-------------+------------+-----------+---------+--------------+------------+
+3 rows in set (0.03 sec)
+
+mysql> select distinct(department) from emp;
++------------+
+| department |
++------------+
+| Banking    |
+| Insurance  |
++------------+
+2 rows in set (0.03 sec)
+
+mysql> select concat(first_name," ",last_name) as Employee, salary * 1.25 as "Incr. Salary" from emp where salary > 5000;
++------------+--------------+
+| Employee   | Incr. Salary |
++------------+--------------+
+| nikhil roy |    7500.0000 |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select concat(first_name," ",last_name) as Employee, salary * 1.25 as "Incr. Salary" from emp;
++--------------+--------------+
+| Employee     | Incr. Salary |
++--------------+--------------+
+| amit shah    |    6250.0000 |
+| john d'souza |    5000.0000 |
+| nikhil roy   |    7500.0000 |
+| raj sharma   |    5625.0000 |
++--------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select concat(first_name," ",last_name) as Employee, salary = salary * 1.25 as "Incr. Salary" from emp where salary > 5000;
++------------+--------------+
+| Employee   | Incr. Salary |
++------------+--------------+
+| nikhil roy |            0 |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select concat(first_name," ",last_name) as Employee, salary = salary * 1.25 as "Incr. Salary" from emp;
++--------------+--------------+
+| Employee     | Incr. Salary |
++--------------+--------------+
+| amit shah    |            0 |
+| john d'souza |            0 |
+| nikhil roy   |            0 |
+| raj sharma   |            0 |
++--------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------------+------------+-----------+---------+--------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date | department |
++-------------+------------+-----------+---------+--------------+------------+
+|           1 | amit       | shah      | 5000.00 | 2013-01-01   | Banking    |
+|           2 | john       | d'souza   | 4000.00 | 2013-01-01   | Insurance  |
+|           3 | nikhil     | roy       | 6000.00 | 2013-02-01   | Banking    |
+|           5 | raj        | sharma    | 4500.00 | 2013-02-01   | Insurance  |
++-------------+------------+-----------+---------+--------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select concat(first_name," gets Rs ",salary * 12) as "Emp Info" from emp;
++-------------------------+
+| Emp Info                |
++-------------------------+
+| amit gets Rs 60000.00   |
+| john gets Rs 48000.00   |
+| nikhil gets Rs 72000.00 |
+| raj gets Rs 54000.00    |
++-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select concat(first_name," gets Rs ",salary * 12) as "Emp Info" from emp
+    -> where department = "Insurance";
++-----------------------+
+| Emp Info              |
++-----------------------+
+| john gets Rs 48000.00 |
+| raj gets Rs 54000.00  |
++-----------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where first_name in ("amit","vishal");
++-------------+------------+-----------+---------+--------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date | department |
++-------------+------------+-----------+---------+--------------+------------+
+|           1 | amit       | shah      | 5000.00 | 2013-01-01   | Banking    |
++-------------+------------+-----------+---------+--------------+------------+
+1 row in set (0.03 sec)
+
+mysql> select * from emp where salary between 4500 and 5500 from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql> select * from emp where salary between 4500 and 5500;
++-------------+------------+-----------+---------+--------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date | department |
++-------------+------------+-----------+---------+--------------+------------+
+|           1 | amit       | shah      | 5000.00 | 2013-01-01   | Banking    |
+|           5 | raj        | sharma    | 4500.00 | 2013-02-01   | Insurance  |
++-------------+------------+-----------+---------+--------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select concat(first_name," ",last_name) as Employee, salary * 1.25 as "Incr. Salary" from emp where salary * 1.25 > 5000;
++------------+--------------+
+| Employee   | Incr. Salary |
++------------+--------------+
+| amit shah  |    6250.0000 |
+| nikhil roy |    7500.0000 |
+| raj sharma |    5625.0000 |
++------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql>

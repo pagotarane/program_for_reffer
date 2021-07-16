@@ -1,0 +1,232 @@
+Microsoft Windows [Version 10.0.18362.476]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -pabc12
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -pabc123
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 21
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database thane_18dec;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> use thane_18dec;
+Database changed
+mysql> create table user
+    -> (
+    -> id int primary key,
+    -> name varchar(30),
+    -> course_id int
+    -> );
+Query OK, 0 rows affected (0.89 sec)
+
+mysql> create table course
+    -> (
+    -> cid int primary key,
+    -> name varchar(30)
+    -> );
+Query OK, 0 rows affected (1.14 sec)
+
+mysql> alter table user
+    -> add constraint fk1 foreign key course_id references course(cid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references course(cid)' at line 2
+mysql> add constraint fk1 foreign key (course_id) references course(cid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add constraint fk1 foreign key (course_id) references course(cid)' at line 1
+mysql> alter table user
+    -> add constraint fk1 foreign key (course_id) references course(cid);
+Query OK, 0 rows affected (2.91 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into course values (1,'android'),(2,'python'),(3,'java'),(4,'mysql');
+Query OK, 4 rows affected (0.16 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into user values (1,'amit',1);
+Query OK, 1 row affected (0.25 sec)
+
+mysql> insert into user values (2,'smit',null),(3,'vishal,1),(4,'sumit',3),(5,'suman',null);
+    '> ^C
+mysql> insert into user values (2,'smit',null),(3,'vishal,1),(4,'sumit',3),(5,'suman',null);
+    '> ^C
+mysql> insert into user values (2,'smit',null),(3,'vishal',1),(4,'sumit',3),(5,'suman'null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'null)' at line 1
+mysql> insert into user values (2,'smit',null),(3,'vishal',1),(4,'sumit',3),(5,'suman',null);
+Query OK, 4 rows affected (0.15 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from user;
++----+--------+-----------+
+| id | name   | course_id |
++----+--------+-----------+
+|  1 | amit   |         1 |
+|  2 | smit   |      NULL |
+|  3 | vishal |         1 |
+|  4 | sumit  |         3 |
+|  5 | suman  |      NULL |
++----+--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from course;
++-----+---------+
+| cid | name    |
++-----+---------+
+|   1 | android |
+|   2 | python  |
+|   3 | java    |
+|   4 | mysql   |
++-----+---------+
+4 rows in set (0.00 sec)
+
+mysql> select user.name,course.name from user,course where course_id = cid;
++--------+---------+
+| name   | name    |
++--------+---------+
+| amit   | android |
+| vishal | android |
+| sumit  | java    |
++--------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select course.name,user.name from user,course where course_id = cid;
++---------+--------+
+| name    | name   |
++---------+--------+
+| android | amit   |
+| android | vishal |
+| java    | sumit  |
++---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select user.name,course.name from user outer join course on course_id = cid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join course on course_id = cid' at line 1
+mysql> select user.name,course.name from user join course on course_id = cid;
++--------+---------+
+| name   | name    |
++--------+---------+
+| amit   | android |
+| vishal | android |
+| sumit  | java    |
++--------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select user.name,course.name from user outer join course on course_id = cid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join course on course_id = cid' at line 1
+mysql> select user.name,course.name from user outer join course;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join course' at line 1
+mysql> select user.name,course.name from user left outer join course on course_id = cid;
++--------+---------+
+| name   | name    |
++--------+---------+
+| amit   | android |
+| smit   | NULL    |
+| vishal | android |
+| sumit  | java    |
+| suman  | NULL    |
++--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select user.name,course.name from user right outer join course on course_id = cid;
++--------+---------+
+| name   | name    |
++--------+---------+
+| amit   | android |
+| vishal | android |
+| NULL   | python  |
+| sumit  | java    |
+| NULL   | mysql   |
++--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select course.name,user.name from user right outer join course on course_id = cid;
++---------+--------+
+| name    | name   |
++---------+--------+
+| android | amit   |
+| android | vishal |
+| python  | NULL   |
+| java    | sumit  |
+| mysql   | NULL   |
++---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select course.name,user.name from user full outer join course on course_id = cid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join course on course_id = cid' at line 1
+mysql>
+
+mysql> create table emp
+    -> ( id int, name varchar(30), rid int);
+Query OK, 0 rows affected (2.11 sec)
+
+mysql> insert into emp values (1,'amit',null),(2,'sumit',1),(3,'rumit',1),(4,'sunny',3),(5,'bunny',3);
+Query OK, 5 rows affected (0.20 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++------+-------+------+
+| id   | name  | rid  |
++------+-------+------+
+|    1 | amit  | NULL |
+|    2 | sumit |    1 |
+|    3 | rumit |    1 |
+|    4 | sunny |    3 |
+|    5 | bunny |    3 |
++------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select a.name emp ,b.name rep_emp_name
+    -> from emp a,emp b
+    -> where a.id = b.rid;
++-------+--------------+
+| emp   | rep_emp_name |
++-------+--------------+
+| amit  | sumit        |
+| amit  | rumit        |
+| rumit | sunny        |
+| rumit | bunny        |
++-------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select a.name emp ,b.name rep_emp_name
+    -> from emp a left join emp b
+    -> on a.id = b.rid;
++-------+--------------+
+| emp   | rep_emp_name |
++-------+--------------+
+| amit  | sumit        |
+| amit  | rumit        |
+| rumit | sunny        |
+| rumit | bunny        |
+| sumit | NULL         |
+| sunny | NULL         |
+| bunny | NULL         |
++-------+--------------+
+7 rows in set (0.03 sec)
+
+mysql> select a.name emp ,b.name rep_emp_name
+    -> from emp a left join emp b
+    -> on a.id = b.rid;
++-------+--------------+
+| emp   | rep_emp_name |
++-------+--------------+
+| amit  | sumit        |
+| amit  | rumit        |
+| rumit | sunny        |
+| rumit | bunny        |
+| sumit | NULL         |
+| sunny | NULL         |
+| bunny | NULL         |
++-------+--------------+
+7 rows in set (0.00 sec)
+

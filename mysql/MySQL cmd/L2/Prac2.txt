@@ -1,0 +1,22 @@
+mysql> create table t2(a tinyint unsigned);
+Query OK, 0 rows affected (0.77 sec)
+
+mysql> desc t2;
++-------+---------------------+------+-----+---------+-------+
+| Field | Type                | Null | Key | Default | Extra |
++-------+---------------------+------+-----+---------+-------+
+| a     | tinyint(3) unsigned | YES  |     | NULL    |       |
++-------+---------------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into t2 values(100);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into t2 values(200);
+Query OK, 1 row affected (0.49 sec)
+
+mysql> insert into t2 values(300);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql> insert into t2 values(-10);
+ERROR 1264 (22003): Out of range value for column 'a' at row 1
+mysql>

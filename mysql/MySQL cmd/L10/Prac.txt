@@ -1,0 +1,670 @@
+Microsoft Windows [Version 10.0.18362.476]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -pabc123
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database thane_23dec;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> use thane_23dec;
+Database changed
+mysql> source E:\MySQL\L10\p1.sql
+Database changed
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> call sum_of_digits(123);
++---------+
+| Message |
++---------+
+|       6 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call sum_of_digits(-8);
++-----------------------+
+| Message               |
++-----------------------+
+| Enter Positive Number |
++-----------------------+
+1 row in set (0.00 sec)
+
++---------+
+| Message |
++---------+
+|       0 |
++---------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> source E:\MySQL\L10\p1.sql
+Database changed
+ERROR 1304 (42000): PROCEDURE sum_of_digits already exists
+mysql> drop procedure sum_of_digits;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> source E:\MySQL\L10\p1.sql
+Database changed
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> call sum_of_digits(123);
++---------+
+| Message |
++---------+
+|       6 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call sum_of_digits(-8);
++-----------------------+
+| Message               |
++-----------------------+
+| Enter Positive Number |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call sum_of_digits(0);
++---------+
+| Message |
++---------+
+|       0 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call sum_of_digits(1000);
++---------+
+| Message |
++---------+
+|       1 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call sum_of_digits(null);
++---------+
+| Message |
++---------+
+|       0 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p2.sql
+Database changed
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call reverse(123);
++---------+
+| Message |
++---------+
+|     321 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(12345678);
++----------+
+| Message  |
++----------+
+| 87654321 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(12);
++---------+
+| Message |
++---------+
+|      21 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(-98);
++-----------------------+
+| Message               |
++-----------------------+
+| Enter Positive Number |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p2.sql
+Database changed
+ERROR 1304 (42000): PROCEDURE reverse already exists
+mysql> drop procedure reverse;
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> source E:\MySQL\L10\p2.sql
+Database changed
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> call reverse(12);
++---------+
+| Message |
++---------+
+|      21 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(12345678);
++----------+
+| Message  |
++----------+
+| 87654321 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(123);
++---------+
+| Message |
++---------+
+|     321 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(-98);
++-----------------------+
+| Message               |
++-----------------------+
+| Enter Positive Number |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p2.sql
+Database changed
+ERROR 1304 (42000): PROCEDURE reverse already exists
+mysql> drop procedure reverse;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> source E:\MySQL\L10\p2.sql
+Database changed
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> call reverse(12345678);
++----------+
+| Reverse  |
++----------+
+| 87654321 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(12);
++---------+
+| Reverse |
++---------+
+|      21 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call reverse(-98);
++-----------------------+
+| Message               |
++-----------------------+
+| Enter Positive Number |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'leave factorial;
+                end if;
+        end loop;
+        select result as Factorial;
+end if;
+end' at line 13
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> call factorial(4);
++-----------+
+| Factorial |
++-----------+
+|         1 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+ERROR 1304 (42000): PROCEDURE factorial already exists
+mysql> drop procedure factorial;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call factorial(4);
++-----------+
+| Factorial |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+ERROR 1304 (42000): PROCEDURE factorial already exists
+mysql> drop procedure factorial;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> call factorial(4);
++-----------+
+| Factorial |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+ERROR 1304 (42000): PROCEDURE factorial already exists
+mysql> drop procedure factorial
+    -> ;
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call factorial(4);
++-----------+
+| Factorial |
++-----------+
+|        24 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(5);
++-----------+
+| Factorial |
++-----------+
+|       120 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(9);
++-----------+
+| Factorial |
++-----------+
+|    362880 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(90);
+ERROR 1690 (22003): BIGINT value is out of range in '(result@1 * i@2)'
+mysql> call factorial(0);
++-----------+
+| Factorial |
++-----------+
+|         1 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(1);
++-----------+
+| Factorial |
++-----------+
+|         1 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(-5);
++-----------------------+
+| Message               |
++-----------------------+
+| Enter Positive Number |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(6-5);
++-----------+
+| Factorial |
++-----------+
+|         1 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(6-3);
++-----------+
+| Factorial |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+ERROR 1304 (42000): PROCEDURE factorial already exists
+mysql> drop procedure factorial
+    -> ;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> source E:\MySQL\L10\p3.sql
+Database changed
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call factorial(3);
++-----------+
+| Factorial |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(4);
++-----------+
+| Factorial |
++-----------+
+|        24 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(5);
++-----------+
+| Factorial |
++-----------+
+|       120 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call factorial(6);
++-----------+
+| Factorial |
++-----------+
+|       720 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table student like thane_21dec.student;
+Query OK, 0 rows affected (1.77 sec)
+
+mysql> insert into student select * from thane_21dec.student;
+Query OK, 6 rows affected (0.23 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++-----+-------+-------+-------+----------+
+| rno | name  | marks | eyear | location |
++-----+-------+-------+-------+----------+
+|  10 | amit  |    98 | fe    | thane    |
+|  20 | sumit |    79 | se    | mumbai   |
+|  30 | rumit |    63 | fe    | thane    |
+|  40 | seema |    81 | se    | thane    |
+|  50 | reena |    45 | fe    | mumbai   |
+|  60 | tina  |    95 | be    | thane    |
++-----+-------+-------+-------+----------+
+6 rows in set (0.00 sec)
+
+mysql> desc student;
++----------+---------------------------+------+-----+---------+-------+
+| Field    | Type                      | Null | Key | Default | Extra |
++----------+---------------------------+------+-----+---------+-------+
+| rno      | int(11)                   | NO   | PRI | NULL    |       |
+| name     | varchar(30)               | YES  |     | NULL    |       |
+| marks    | tinyint(3) unsigned       | YES  |     | NULL    |       |
+| eyear    | enum('fe','se','te','be') | YES  |     | NULL    |       |
+| location | varchar(30)               | YES  |     | mumbai  |       |
++----------+---------------------------+------+-----+---------+-------+
+5 rows in set (0.12 sec)
+
+mysql> source E:\MySQL\L10\p4.sql
+Database changed
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> call list_of_thane(@res);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select @res;
++------------------------+
+| @res                   |
++------------------------+
+|  amit rumit seema tina |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L10\p5.sql
+Database changed
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> source E:\MySQL\L10\p5.sql
+Database changed
+Query OK, 0 rows affected (0.21 sec)
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> call names_marks();
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call names_marks();
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source E:\MySQL\L10\p5.sql
+Database changed
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> call names_marks();
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source E:\MySQL\L10\p5.sql
+Database changed
+Query OK, 0 rows affected (0.21 sec)
+
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> call names_marks();
++------------------------------------+
+| LIST1                              |
++------------------------------------+
+|  amit->98 | seema->81 | tina->95 | |
++------------------------------------+
+1 row in set (0.08 sec)
+
++-------------------------------------+
+| LIST2                               |
++-------------------------------------+
+|  amit->98 | seema->81 | reena->45 | |
++-------------------------------------+
+1 row in set (0.09 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> source E:\MySQL\L10\p5.sql
+Database changed
+Query OK, 0 rows affected (0.21 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> call names_marks();
++------------------------------------+
+| LIST1                              |
++------------------------------------+
+|  amit->98 | seema->81 | tina->95 | |
++------------------------------------+
+1 row in set (0.00 sec)
+
++--------------------------------------+
+| LIST2                                |
++--------------------------------------+
+|  sumit->79 | rumit->63 | reena->45 | |
++--------------------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from student;
++-----+-------+-------+-------+----------+
+| rno | name  | marks | eyear | location |
++-----+-------+-------+-------+----------+
+|  10 | amit  |    98 | fe    | thane    |
+|  20 | sumit |    79 | se    | mumbai   |
+|  30 | rumit |    63 | fe    | thane    |
+|  40 | seema |    81 | se    | thane    |
+|  50 | reena |    45 | fe    | mumbai   |
+|  60 | tina  |    95 | be    | thane    |
++-----+-------+-------+-------+----------+
+6 rows in set (0.00 sec)
+
+mysql> desc student;
++----------+---------------------------+------+-----+---------+-------+
+| Field    | Type                      | Null | Key | Default | Extra |
++----------+---------------------------+------+-----+---------+-------+
+| rno      | int(11)                   | NO   | PRI | NULL    |       |
+| name     | varchar(30)               | YES  |     | NULL    |       |
+| marks    | tinyint(3) unsigned       | YES  |     | NULL    |       |
+| eyear    | enum('fe','se','te','be') | YES  |     | NULL    |       |
+| location | varchar(30)               | YES  |     | mumbai  |       |
++----------+---------------------------+------+-----+---------+-------+
+5 rows in set (0.13 sec)
+
+mysql> source E:\MySQL\L10\p6.sql
+Database changed
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> source E:\MySQL\L10\p6.sql
+Database changed
+Query OK, 0 rows affected (0.19 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> select f1();
++------+
+| f1() |
++------+
+|    6 |
++------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L10\p7.sql
+Database changed
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> select * from student;
++-----+-------+-------+-------+----------+
+| rno | name  | marks | eyear | location |
++-----+-------+-------+-------+----------+
+|  10 | amit  |    98 | fe    | thane    |
+|  20 | sumit |    79 | se    | mumbai   |
+|  30 | rumit |    63 | fe    | thane    |
+|  40 | seema |    81 | se    | thane    |
+|  50 | reena |    45 | fe    | mumbai   |
+|  60 | tina  |    95 | be    | thane    |
++-----+-------+-------+-------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select f2();
++------+
+| f2() |
++------+
+|   60 |
++------+
+1 row in set (0.00 sec)
+
+mysql> source E:\MySQL\L10\p7.sql
+Database changed
+Query OK, 0 rows affected (0.14 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> select f2();
++------+
+| f2() |
++------+
+|   98 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where marks = f2();
++-----+------+-------+-------+----------+
+| rno | name | marks | eyear | location |
++-----+------+-------+-------+----------+
+|  10 | amit |    98 | fe    | thane    |
++-----+------+-------+-------+----------+
+1 row in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,68 @@
+mysql> create database book_db;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> use book_db;
+Database changed
+mysql> create table book
+    -> (
+    -> bid int primary key,
+    -> bname varchar(50),
+    -> bprice float(10,2),
+    -> bcategory varchar(50)
+    -> );
+Query OK, 0 rows affected, 1 warning (1.46 sec)
+
+mysql> insert into book values (10,"java",450,"comps");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into book values (20,"android",350,"comps"),(15,"ac",450,"mech");
+Query OK, 2 rows affected (0.10 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> update book
+    -> set bname = "java certification" where bname = "java";
+Query OK, 1 row affected (0.21 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update book
+    -> set (bname,bprice) values ("rac",320) where bid = 15;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(bname,bprice) values ("rac",320) where bid = 15' at line 2
+mysql> update book
+    -> set bname = "rac" and bprice = 320
+    -> where bid = 15;
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: 'rac'
+mysql> update book
+    -> set bname = "rac" where bid = 15;
+Query OK, 1 row affected (0.26 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update book
+    -> set bprice = 320 where bid = 15;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update book
+    -> set bprice = bprice * 1.1 ;
+Query OK, 3 rows affected (0.14 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> delete from book where bname = "mech";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update book
+    -> set bprice = bprice * 0.97
+    -> where bcategory = "comps";
+Query OK, 2 rows affected (0.14 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> delete from book where bcategory = "mech";
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from book;
++-----+--------------------+--------+-----------+
+| bid | bname              | bprice | bcategory |
++-----+--------------------+--------+-----------+
+|  10 | java certification | 480.15 | comps     |
+|  20 | android            | 373.45 | comps     |
++-----+--------------------+--------+-----------+
+2 rows in set (0.00 sec)
